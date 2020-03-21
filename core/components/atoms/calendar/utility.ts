@@ -1,4 +1,4 @@
-import { DateType, Day } from './types';
+import { DateObject, DateType, Day } from './types';
 import config from './config';
 
 type Operator = 'less' | 'more' | 'equal';
@@ -29,13 +29,22 @@ export const getDateInfo = (d?: DateType): Record<string, any> => {
   return {};
 };
 
-export const convertToDate = (d: DateType): Date => {
-  let dateVal = d;
-  if (typeof dateVal === 'number') {
-    dateVal = new Date(dateVal);
+export const convertToDate = (d: DateType | DateObject): Date => {
+  let dateVal;
+
+  if (typeof d === 'number') {
+    dateVal = new Date(d);
+  } else if (!(d instanceof Date)) {
+    const { year, month, date } = d as DateObject;
+    dateVal = new Date();
+    dateVal.setDate(date);
+    dateVal.setMonth(month);
+    dateVal.setFullYear(year);
+  } else {
+    dateVal = d;
   }
 
-  return dateVal;
+  return dateVal as Date;
 };
 
 export const compareDecade = (d: DateType | undefined, operator: Operator, currDecade: number): boolean => {
@@ -75,13 +84,13 @@ export const compareDate = (
       date: limitDate
     } = getDateInfo(d);
 
-    switch(operator) {
+    switch (operator) {
       case 'less':
         if (limitYear < currYear) return true;
         if (limitYear > currYear) return false;
         if (currMonth !== undefined) {
-          if(limitMonth < currMonth) return true;
-          if(limitMonth > currMonth) return false;
+          if (limitMonth < currMonth) return true;
+          if (limitMonth > currMonth) return false;
         }
         if (currDate !== undefined && limitDate < currDate) return true;
         break;
@@ -90,8 +99,8 @@ export const compareDate = (
         if (limitYear > currYear) return true;
         if (limitYear < currYear) return false;
         if (currMonth !== undefined) {
-          if(limitMonth > currMonth) return true;
-          if(limitMonth < currMonth) return false;
+          if (limitMonth > currMonth) return true;
+          if (limitMonth < currMonth) return false;
         }
         if (currDate !== undefined && limitDate > currDate) return true;
         break;
