@@ -1,0 +1,13 @@
+.RangePicker {
+
+}
+
+.RangePicker-input {
+    display: flex;
+    align-items: center;
+}
+
+.RangePicker-rangeSeparator {
+    margin-left: var(--spacing-l);
+    margin-right: var(--spacing-l);
+}

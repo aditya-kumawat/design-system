@@ -6,6 +6,11 @@ import { action } from '@storybook/addon-actions';
 
 // CSF format story
 export const all = () => {
+  const withInput = boolean(
+    'withInput',
+    false
+  );
+
   const monthsInView = number(
     'monthsInView',
     1
@@ -70,14 +75,10 @@ export const all = () => {
   if (yearNav !== -1) attr.yearNav = yearNav;
   if (monthNav !== -1) attr.monthNav = monthNav;
 
-  return (
-    <Card
-      shadow="light"
-      style={{
-        maxWidth: `${monthsInView * 330}px`
-      }}
-    >
+  if (withInput) {
+    return (
       <RangePicker
+        withInput={withInput}
         monthsInView={monthsInView}
         jumpView={jumpView}
         startDate={startDate}
@@ -87,8 +88,29 @@ export const all = () => {
         firstDayOfWeek={firstDayOfWeek}
         {...attr}
       />
-    </Card>
-  );
+    );
+  } else {
+    return (
+      <Card
+        shadow="light"
+        style={{
+          maxWidth: `${monthsInView * 330}px`
+        }}
+      >
+        <RangePicker
+          withInput={withInput}
+          monthsInView={monthsInView}
+          jumpView={jumpView}
+          startDate={startDate}
+          endDate={endDate}
+          onRangeChange={(sDate?: Date, eDate?: Date) => action(`on range change: ${sDate} - ${eDate}`)()}
+          view={view}
+          firstDayOfWeek={firstDayOfWeek}
+          {...attr}
+        />
+      </Card>
+    );
+  }
 };
 
 // Required for CSF format story

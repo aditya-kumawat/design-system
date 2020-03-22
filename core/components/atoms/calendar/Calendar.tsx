@@ -168,11 +168,12 @@ export const Calendar: React.FunctionComponent<ICalendarProps> = props => {
   }, [currDateState]);
 
   React.useEffect(() => {
-    if (endDateState) {
-      const inRangeError = getInRangeError();
-      if (onRangeChange && !inRangeError) onRangeChange(startDateState, endDateState);
-    }
-  }, [endDateState]);
+    // if (endDateState) {
+    //   const inRangeError = getInRangeError();
+    //   if (onRangeChange && !inRangeError) onRangeChange(startDateState, endDateState);
+    // }
+    if(onRangeChange) onRangeChange(startDateState, endDateState);
+  }, [startDateState, endDateState]);
 
   React.useEffect(() => {
     if (yearState !== undefined && monthsInView < 2) {

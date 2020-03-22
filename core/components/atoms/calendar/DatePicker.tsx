@@ -1,12 +1,10 @@
 import * as React from 'react';
 import Calendar from './Calendar';
-import { View, Day, DateType } from './types';
+import { View, Day, DateType, DateFormat } from './types';
 import Popover from '@/components/molecules/popover';
 import InputMask from '@/components/molecules/inputMask';
 import { getDateInfo, convertToDate } from './utility';
 import validators from '@/utils/validators';
-
-export type dateFormat = 'mm/dd/yy' | 'dd/mm/yy' | 'yy-mm-dd' | 'mm-dd-yy' | 'dd-mm-yy' | 'yy-mm-dd';
 
 export interface IDatePickerProps {
   onDateChange?: (date?: Date) => void;
@@ -19,8 +17,8 @@ export interface IDatePickerProps {
   yearNav?: number;
   monthNav?: number;
   withInput?: boolean;
-  inputFormat?: dateFormat;
-  outputFormat?: dateFormat;
+  inputFormat?: DateFormat;
+  outputFormat?: DateFormat;
 }
 
 export const DatePicker: React.FunctionComponent<IDatePickerProps> = props => {
@@ -137,6 +135,8 @@ export const DatePicker: React.FunctionComponent<IDatePickerProps> = props => {
     return (
       <Calendar
         {...rest}
+        date={date}
+        onDateChange={onDateChange}
       />
     );
   }

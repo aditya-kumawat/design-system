@@ -116,7 +116,7 @@ const InputMask = React.forwardRef<HTMLInputElement, IInputMaskProps>((props, fo
         }
       } else {
         newVal += m;
-        if (caret <= i && it < rawValue.length) {
+        if (i >= caret && i <= newCaretPos && it < rawValue.length) {
           if (rawValue.length > oldRawValue.length) newCaretPos++;
         }
       }
