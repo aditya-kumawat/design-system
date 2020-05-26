@@ -1,0 +1,95 @@
+import * as React from 'react';
+import { Data } from '../Table';
+// @ts-ignore
+import iconImg from './image.png';
+import { TableCellProps } from '../TableCell';
+import { Button } from '@/index';
+
+export default [
+  {
+    name: 'name',
+    displayName: 'Name',
+    width: 300,
+    resize: true,
+    // pinned: true,
+    translate: (a: Data) => ({
+      title: `${a.firstName} ${a.lastName}`,
+      firstName: a.firstName,
+      lastName: a.firstName
+    }),
+    filters: [
+      { label: 'A-G', value: 'a-g' },
+      { label: 'H-R', value: 'h-r', selected: false },
+      { label: 'S-Z', value: 's-z' },
+    ],
+    comparator: (a: Data, b: Data): number => (
+      a.lastName.localeCompare(b.lastName) && a.firstName.localeCompare(b.firstName)
+    ),
+    onFilterChange: (a: Data, filters: any[]) => {
+      for (const filter of filters) {
+        switch (filter) {
+          case 'a-g':
+            if (a.firstName[0].toLowerCase() >= 'a' && a.firstName[0].toLowerCase() <= 'g') return true;
+            break;
+          case 'h-r':
+            if (a.firstName[0].toLowerCase() >= 'h' && a.firstName[0].toLowerCase() <= 'r') return true;
+            break;
+          case 's-z':
+            if (a.firstName[0].toLowerCase() >= 's' && a.firstName[0].toLowerCase() <= 'z') return true;
+            break;
+        }
+      }
+      return false;
+    },
+    avatar: true
+  },
+  {
+    name: 'email',
+    displayName: 'Email',
+    width: 350,
+    resize: true,
+    align: 'center',
+    // separator: true,
+    // pinned: true,
+    comparator: (a: Data, b: Data): number => a.email.localeCompare(b.email),
+    image: iconImg,
+    // image: "events",
+  },
+  {
+    name: 'gender',
+    displayName: 'Gender',
+    width: 200,
+    resize: true,
+    // separator: true,
+    comparator: (a: Data, b: Data): number => a.gender.localeCompare(b.gender),
+    status: true
+  },
+  {
+    name: 'icon',
+    displayName: 'Icon',
+    width: 100,
+    resize: true,
+    icon: 'events',
+    // separator: true,
+    // status: "success"
+  },
+  {
+    name: 'customCell',
+    displayName: 'Custom Cell',
+    width: 200,
+    resize: true,
+    separator: true,
+    cellTemplate: (props: TableCellProps) => {
+      const {
+        loading
+      } = props;
+
+      if (loading) return null;
+
+      return (
+        <Button appearance={'primary'}>Button</Button>
+      );
+    }
+    // status: "success"
+  },
+];
