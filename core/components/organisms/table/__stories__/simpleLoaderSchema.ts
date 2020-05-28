@@ -15,25 +15,6 @@ const loaderSchema: TableProps['loaderSchema'] = [
     displayName: 'Email',
     width: 350,
     align: 'center',
-    image: image,
-  },
-  {
-    name: 'gender',
-    displayName: 'Gender',
-    width: 200,
-    status: true
-  },
-  {
-    name: 'icon',
-    displayName: 'Icon',
-    width: 100,
-    icon: "events",
-  },
-  {
-    name: 'customCell',
-    displayName: 'Custom Cell',
-    width: 200,
-    separator: true,
   },
 ];
 

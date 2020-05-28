@@ -7,10 +7,11 @@ import TableCell, { TableCellProps } from './TableCell';
 export type SortType = 'asc' | 'desc';
 export type Alignment = 'left' | 'right' | 'center';
 export type Comparator = (a: Data, b: Data) => number;
+export type Filter = any[];
 export interface FetchDataAttr {
   page?: number;
   pageSize?: number;
-  filters?: Record<string, any>;
+  filters?: Record<CellSchema["name"], Filter>;
   sortingList?: TableState['sortingList'];
 }
 
@@ -27,7 +28,7 @@ export type sortDataFn = (comparator: Comparator, type: SortType) => void;
 export type reorderSchemaFn = (from: string, to: string) => void;
 export type onSelectFn = (rowIndex: number, selected: boolean) => void;
 export type onSelectAllFn = (page: number, selected: boolean) => void;
-export type onFilterChangeFn = (data: Data, filters: FetchDataAttr['filters']) => boolean;
+export type onFilterChangeFn = (data: Data, filters: Filter) => boolean;
 export type onRowClickFn = (data: Data) => void;
 
 export type CellSchema = {
@@ -640,13 +641,19 @@ const TableRow = (props: TableRowProps) => {
 
   const onClickHandler = () => {
     const {
-      onRowClick
-    } = _this.props;
+      type
+    } = _this;
 
-    if (onRowClick) {
-      onRowClick(data);
-    } else {
-      window.location = data._link;
+    if(type === "resource") {
+      const {
+        onRowClick,
+      } = _this.props;
+
+      if (onRowClick) {
+        onRowClick(data);
+      } else {
+        window.location = data._link;
+      }
     }
   };
 
@@ -821,7 +828,7 @@ export class Table extends React.Component<TableProps, TableState> {
   updateRenderedData = (options?: FetchDataAttr) => {
     const {
       pageSize,
-    } = this.props;
+    } = this;
 
     const {
       page,

@@ -1,4 +1,4 @@
-import { Data } from '../Table';
+// import { Data } from '../Table';
 
 export default [
     {
@@ -6,12 +6,12 @@ export default [
         lastName: 'Heeran',
         email: 'bheeran0@altervista.org',
         gender: 'Female',
-        _expanded: {
-            schema: [
-                { name: 'firstName', displayName: 'First Name', width: 200 },
-                { name: 'lastName', displayName: 'Last Name', width: 200 },
-            ]
-        },
+        // _expanded: {
+        //     schema: [
+        //         { name: 'firstName', displayName: 'First Name', width: 200 },
+        //         { name: 'lastName', displayName: 'Last Name', width: 200 },
+        //     ]
+        // },
         _link: '/test'
     },
     {
@@ -19,18 +19,18 @@ export default [
         lastName: 'Cathro',
         email: 'fcathro1@ucla.edu',
         gender: 'Male',
-        _expanded: {
-            schema: [
-                { name: 'year', displayName: 'Year', width: 100, comparator: (a: Data, b: Data): number => a.year.localeCompare(b.year) },
-                { name: 'income', displayName: 'Income', width: 200, comparator: (a: Data, b: Data): number => a.income.localeCompare(b.income) },
-            ],
-            data: [
-                { year: 2016, income: "50k" },
-                { year: 2018, income: "80k" },
-                { year: 2017, income: "60k" },
-                { year: 2020, income: "70k" }
-            ]
-        }
+        // _expanded: {
+        //     schema: [
+        //         { name: 'year', displayName: 'Year', width: 100, comparator: (a: Data, b: Data): number => a.year.localeCompare(b.year) },
+        //         { name: 'income', displayName: 'Income', width: 200, comparator: (a: Data, b: Data): number => a.income.localeCompare(b.income) },
+        //     ],
+        //     data: [
+        //         { year: 2016, income: "50k" },
+        //         { year: 2018, income: "80k" },
+        //         { year: 2017, income: "60k" },
+        //         { year: 2020, income: "70k" }
+        //     ]
+        // }
     },
     {
         firstName: 'Lemmie',
@@ -46,20 +46,20 @@ export default [
         lastName: 'Boatwright',
         email: 'rboatwright3@arstechnica.com',
         gender: 'Male',
-        _expanded: {
-            showHeader: false,
-            data: [
-                {
-                    gender: 'Male',
-                },
-                {
-                    gender: 'Male',
-                },
-                {
-                    gender: 'Male',
-                }
-            ]
-        }
+        // _expanded: {
+        //     showHeader: false,
+        //     data: [
+        //         {
+        //             gender: 'Male',
+        //         },
+        //         {
+        //             gender: 'Male',
+        //         },
+        //         {
+        //             gender: 'Male',
+        //         }
+        //     ]
+        // }
     },
     {
         firstName: 'Rolando',

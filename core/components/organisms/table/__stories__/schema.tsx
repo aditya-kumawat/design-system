@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Data } from '../Table';
+import { Data, CellSchema } from '../Table';
 // @ts-ignore
 import iconImg from './image.png';
 import { TableCellProps } from '../TableCell';
 import { Button } from '@/index';
 
-export default [
+const schema: CellSchema[] = [
   {
     name: 'name',
     displayName: 'Name',
@@ -25,7 +25,7 @@ export default [
     comparator: (a: Data, b: Data): number => (
       a.lastName.localeCompare(b.lastName) && a.firstName.localeCompare(b.firstName)
     ),
-    onFilterChange: (a: Data, filters: any[]) => {
+    onFilterChange: (a, filters) => {
       for (const filter of filters) {
         switch (filter) {
           case 'a-g':
@@ -84,7 +84,7 @@ export default [
         loading
       } = props;
 
-      if (loading) return null;
+      if (loading) return <></>;
 
       return (
         <Button appearance={'primary'}>Button</Button>
@@ -93,3 +93,5 @@ export default [
     // status: "success"
   },
 ];
+
+export default schema;
