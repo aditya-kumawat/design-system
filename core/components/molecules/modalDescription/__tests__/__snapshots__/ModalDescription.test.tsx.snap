@@ -8,7 +8,9 @@ exports[`ModalDescription component
     class="Modal-description pl-6 pr-6"
     data-test="DesignSystem-ModalDescription"
   >
-    <div>
+    <div
+      class="mb-3"
+    >
       <span
         class="Text Text--default Text--strong Text--regular"
         data-test="DesignSystem-ModalDescription--Title"
@@ -36,7 +38,9 @@ exports[`ModalDescription component
     class="Modal-description"
     data-test="DesignSystem-ModalDescription"
   >
-    <div>
+    <div
+      class="mb-3"
+    >
       <span
         class="Text Text--default Text--strong Text--regular"
         data-test="DesignSystem-ModalDescription--Title"

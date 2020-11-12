@@ -32,9 +32,11 @@ export const all = () => {
 
   const modalHeaderOptions = {
     onClose,
-    icon: 'pan_tool',
+    // icon: 'pan_tool',
+    // showBackIcon: true,
     heading: 'Heading',
-    subHeading: 'Subheading'
+    subHeading: 'Subheading',
+    separator: true
   };
 
   const modalDescriptionOptions = {
@@ -47,6 +49,13 @@ export const all = () => {
     description: 'Card Sections include supporting text like an article summary or a restaurant description.',
     removePadding: true
   };
+
+  const secondaryButton = React.useRef<HTMLButtonElement>(null);
+  React.useEffect(() => {
+    window.requestAnimationFrame(() => {
+      if (secondaryButton.current) secondaryButton.current.focus();
+    });
+  }, [open]);
 
   return (
     <div>
@@ -66,8 +75,8 @@ export const all = () => {
           <ModalDescription {...modalDescriptionOptions} />
           <ModalDescription {...modalDescriptionOptionsWithoutTitle} />
         </ModalBody>
-        <ModalFooter>
-          <Button appearance="basic" onClick={action('Basic button click')}>Basic</Button>
+        <ModalFooter separator={true}>
+          <Button appearance="basic" onClick={action('Basic button click')} ref={secondaryButton}>Basic</Button>
           <Button appearance="primary" onClick={action('Primary button click')}>Primary</Button>
         </ModalFooter>
       </Modal>
@@ -77,6 +86,12 @@ export const all = () => {
 
 const customCode = `() => {
   const [open, setOpen] = React.useState(true);
+  const secondaryButton = React.useRef(null);
+  React.useEffect(() => {
+    window.requestAnimationFrame(() => {
+      if (secondaryButton.current) secondaryButton.current.focus()
+    });
+  }, [open]);
 
   const onClose = () => {
     setOpen(!open);
@@ -122,7 +137,7 @@ const customCode = `() => {
           <ModalDescription {...modalDescriptionOptionsWithoutTitle} />
         </ModalBody>
         <ModalFooter>
-          <Button appearance="basic">Basic</Button>
+          <Button appearance="basic" ref={secondaryButton}>Basic</Button>
           <Button appearance="primary">Primary</Button>
         </ModalFooter>
       </Modal>
