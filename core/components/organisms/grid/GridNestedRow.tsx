@@ -1,10 +1,11 @@
-// import * as React from 'react';
-import { Grid } from '@/index';
+import * as React from 'react';
+// import { Grid } from '@/index';
 import { GridProps } from '@/index.type';
 import { RowData } from './Grid';
+import GridContext from './GridContext';
 
 export interface GridNestedRowProps {
-  _this: Grid;
+  // _this: Grid;
   data: RowData;
   rowIndex: number;
 }
@@ -17,17 +18,20 @@ export interface NestedRowProps {
 }
 
 export const GridNestedRow = (props: GridNestedRowProps) => {
-  const {
-    _this,
-    data,
-    rowIndex
-  } = props;
-
+  const context = React.useContext(GridContext);
+  
   const {
     schema,
     loading,
     nestedRowRenderer
-  } = _this.props;
+  } = context;
+
+  const {
+    // _this,
+    data,
+    rowIndex
+  } = props;
+
 
   if (nestedRowRenderer) return nestedRowRenderer({ data, schema, loading, rowIndex });
   // return (

@@ -1,12 +1,12 @@
 import { Grid } from '@/index';
-import { ColumnSchema, Pinned, SortType, CellType } from './Grid';
+import { ColumnSchema, Pinned, SortType, CellType, GridRef, updateColumnSchemaFunction } from './Grid';
 
-export const resizeCol = (_this: Grid, name: string, el: HTMLDivElement | null) => {
+export const resizeCol = ({ updateColumnSchema }: { updateColumnSchema: updateColumnSchemaFunction }, name: string, el: HTMLDivElement | null) => {
   const elX = el?.getBoundingClientRect().x;
   function resizable(ev: MouseEvent) {
     ev.preventDefault();
     if (elX) {
-      _this.updateColumnSchema(name, {
+      updateColumnSchema(name, {
         width: ev.pageX - elX
       });
     }
@@ -50,17 +50,14 @@ export function hideColumn(this: Grid, name: ColumnSchema['name'], value: boolea
   this.updateColumnSchema(name, schemaUpdate);
 }
 
-export function getWidth(this: Grid, width: React.ReactText) {
+export function getWidth({ ref }: { ref: GridRef }, width: React.ReactText) {
   const isPercent = typeof width === 'string' && width.slice(-1) === '%';
 
   if (isPercent) {
-    if (this.state.init) {
-      const checkboxCell = this.gridRef!.querySelector('.Grid-cell--checkbox');
-      const checkboxWidth = checkboxCell ? checkboxCell.clientWidth : 0;
-      const gridWidth = this.gridRef!.clientWidth - checkboxWidth;
-      return gridWidth * (+(width as string).slice(0, -1) / 100);
-    }
-    return 0;
+    const checkboxCell = ref!.querySelector('.Grid-cell--checkbox');
+    const checkboxWidth = checkboxCell ? checkboxCell.clientWidth : 0;
+    const gridWidth = ref!.clientWidth - checkboxWidth;
+    return gridWidth * (+(width as string).slice(0, -1) / 100);
   }
   return width;
 }
