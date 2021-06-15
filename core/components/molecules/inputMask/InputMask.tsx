@@ -116,11 +116,17 @@ export const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>((pro
     setValue(valueProp || '');
   }, [valueProp]);
 
+  React.useEffect(() => {
+    return () => {
+      if (deferId.current) window.cancelAnimationFrame(deferId.current);
+    }
+  }, []);
+
   const setCursorPosition = (val: number) => setSelectionPos({ start: val, end: val });
 
   const getCurrSelection = () => ({
-    start: ref.current!.selectionStart || 0,
-    end: ref.current!.selectionEnd || 0,
+    start: ref.current ? ref.current!.selectionStart || 0 : 0,
+    end: ref.current ? ref.current!.selectionEnd || 0 : 0,
   });
 
   const setSelectionPos = (pos: SelectionPos): void => {
@@ -257,12 +263,13 @@ export const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>((pro
   };
 
   const classes = classNames({
-    'd-flex flex-column flex-grow-1': true,
+    'InputMask': true,
   }, className);
 
   return (
-    <div className={classes}>
+    <div data-test="DesignSystem-InputMask" className={classes}>
       <Input
+        data-test="DesignSystem-InputMask--Input"
         {...rest}
         value={value}
         error={error}
@@ -274,7 +281,7 @@ export const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>((pro
         autoComplete={'off'}
         ref={ref}
       />
-      <Caption error={error} withInput={true} hide={!caption}>
+      <Caption data-test="DesignSystem-InputMask--Caption" error={error} withInput={true} hide={!caption}>
         {caption}
       </Caption>
     </div>
