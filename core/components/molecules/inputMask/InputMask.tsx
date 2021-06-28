@@ -220,6 +220,7 @@ export const InputMask = React.forwardRef<HTMLInputElement, InputMaskProps>((pro
       cursorPosition = newCursorPosition;
     }
     const newValue = maskedVal.slice(0, mask.length).join('');
+    console.log(value, inputVal, enteredVal, updatedVal, removedLength, newValue, selection, currSelection);
     window.requestAnimationFrame(() => setCursorPosition(cursorPosition));
 
     if (Utils.validators.isValid(validators, newValue)) {
